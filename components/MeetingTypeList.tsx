@@ -6,7 +6,9 @@ import Link from "next/link";
 import MeetingModel from "./MeetingModel";
 
 const MeetingTypeList = () => {
-  const [meetingState, setMeetingState] = useState<"isScheduleMeeting" | "isJoinMeeting" | "isInstantMeeting" | undefined>();
+  const [meetingState, setMeetingState] = useState<
+    "isScheduleMeeting" | "isJoiningMeeting" | "isInstantMeeting" | undefined
+  >(undefined);
 
   const createMeeting = () => {
     // Logic to create an instant meeting
@@ -22,42 +24,42 @@ const MeetingTypeList = () => {
         title="New Meeting"
         description="Start an instant meeting"
         className="bg-orange-1"
-        handleClick={() => setMeetingState('isInstantMeeting')}
+        handleClick={() => setMeetingState("isInstantMeeting")}
       />
       <HomeCard
         img="/icons/join-meeting.svg"
         title="Join Meeting"
         description="via invitation link"
         className="bg-blue-1"
-        handleClick={() => setMeetingState('isJoinMeeting')}
+        handleClick={() => setMeetingState("isJoiningMeeting")}
       />
       <HomeCard
         img="/icons/schedule.svg"
         title="Schedule Meeting"
         description="Plan your meeting"
         className="bg-purple-1"
-        handleClick={() => setMeetingState('isScheduleMeeting')}
+        handleClick={() => setMeetingState("isScheduleMeeting")}
       />
       <Link href="/recordings" passHref>
-     
-          <HomeCard
-            img="/icons/recordings.svg"
-            title="View Recordings"
-            description="Meeting Recordings"
-            className="bg-yellow-1"
-            handleClick={() => {}}
-          />
-      
+        <HomeCard
+          img="/icons/recordings.svg"
+          title="View Recordings"
+          description="Meeting Recordings"
+          className="bg-yellow-1"
+          handleClick={() => {}}
+        />
       </Link>
 
       <MeetingModel
-        isOpen={meetingState === 'isInstantMeeting'}
+        isOpen={meetingState === "isInstantMeeting"}
         onClose={() => setMeetingState(undefined)}
         title="Start an Instant Meeting"
         className="text-center"
         buttonText="Start Meeting"
         handleClick={createMeeting}
-      />
+      >
+        {/* Any additional content can go here */}
+      </MeetingModel>
     </section>
   );
 };
