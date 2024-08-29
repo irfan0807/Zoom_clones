@@ -6,7 +6,18 @@ const MeetingSetup = () => {
   const [isMicCameraToggleOn, setisMicCameraToggleOn] = useState(false);
   const call = useCall();
 
+  if(!call) throw new Error('usecall must be used within Streamcall component') 
+
   useEffect(() => {
+
+    if(isMicCameraToggleOn){
+        call?.camera.disable();
+        call?.microphone.disable();
+    }else{
+
+        call?.camera.enable();
+        call?.microphone.enable();
+    }
 
     
 
