@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomeCard from "./HomeCard";
 import Link from "next/link";
 import MeetingModel from "./MeetingModel";
@@ -16,12 +16,16 @@ const MeetingTypeList = () => {
     description: "",
     link: "",
   });
-  const [callDetails, setCallDetails] = useState<Call>();
+  const [callDetails, setCallDetails] = useState<Call | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   const { user } = useUser();
   const client = useStreamVideoClient();
 
-  // Method to create video call meeting
+  useEffect(() => {
+    setIsMounted(true); // Ensure this runs only on the client side
+  }, []);
+
   const createMeeting = async () => {
     if (!client || !user) return;
     try {
@@ -43,12 +47,14 @@ const MeetingTypeList = () => {
 
       setCallDetails(call);
       if (!value.description) {
-        window.location.href = `/meeting/${call.id}`; // Navigate using window.location
+        window.location.href = `/meeting/${call.id}`; // Use window.location to avoid router issues
       }
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (!isMounted) return null; // Prevent mismatched rendering during hydration
 
   return (
     <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
