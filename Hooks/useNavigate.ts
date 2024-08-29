@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 
-const useNavigate = (path:string) => {
+const useNavigate = () => {
   const router = useRouter();
   
-  const navigate = () => {
+  const navigate = (path: string) => {
     router.push(path);
   };
 
