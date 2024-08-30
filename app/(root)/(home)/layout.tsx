@@ -2,6 +2,16 @@ import NavBar from '@/components/NavBar'
 import SideBar from '@/components/SideBar'
 import React, { ReactNode } from 'react'
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Shaik's video Calling App",
+  description: "Shaik's video Calling App",
+  icons: {
+    icon:'/icons/logo.svg'
+  }
+};
+
 const HomeLayout  = ({children} : {children :ReactNode}) => {
   return (
     <main className='relative'>
